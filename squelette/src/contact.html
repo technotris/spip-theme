@@ -1,0 +1,24 @@
+<BOUCLE_principale(AUTEURS){tout}{par id_auteur}{! email}{0,1}>
+<!DOCTYPE html>
+<html dir="#LANG_DIR" lang="#LANG">
+	<head>
+		<title><:contact:> - [(#NOM_SITE_SPIP|textebrut)]</title>
+		<INCLURE{fond=inclure/head,robots=none} />
+	</head>
+
+	<body class="bg-gray-300 min-h-screen">
+		<INCLURE{fond=inclure/header} />
+		<INCLURE{fond=inclure/nav,env} />
+		<div class="container mx-auto max-w-5xl flex flex-wrap py-6 bg-gray-300">
+			<main class="w-full flex flex-col items-center px-3 bg-white" role="main">
+				<h1><:contact:></h1>
+				<div class="content" id="content">
+					#FORMULAIRE_ECRIRE_AUTEUR
+				</div><!--.content-->
+			</main><!--.main-->
+		</div><!--.page-->
+		<INCLURE{fond=inclure/footer,self=#SELF} />
+	</body>
+</html>
+</BOUCLE_principale>
+[(#INCLURE{fond=404, erreur=<:aucun_auteur:>})]<//B_principale>
