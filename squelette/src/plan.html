@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html dir="#LANG_DIR" lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js">
+<html dir="#LANG_DIR" lang="#LANG">
 	<head>
-		<script type='text/javascript'>/*<![CDATA[*/(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement);/*]]>*/</script>
 		<title><:plan_site:> - [(#NOM_SITE_SPIP|textebrut)]</title>
 		[<meta name="description" content="(#DESCRIPTIF_SITE_SPIP|couper{150}|attribut_html)" />]
 		<INCLURE{fond=inclure/head,robots=none} />
 	</head>
 
-	<body class="pas_surlignable page_plan min-h-screen bg-gray-400 ">
+	<body class="pas_surlignable page_plan min-h-screen bg-gray-300 ">
 		<INCLURE{fond=inclure/header} />
 		<INCLURE{fond=inclure/nav,env} />
-			<main class="mx-auto w-full flex flex-col items-center px-3 bg-white" role="main">
-				<h1><:plan_site:></h1>
-				<div class="content" id="content">
-					#MODELE{plan}
-				</div><!--.content-->
-			</main><!--.main-->
+		<main class="mx-auto w-full max-w-5xl flex flex-col items-center px-3 bg-white" role="main">
+			<h1 class="text-xl"><:plan_site:></h1>
+			<div class="content" id="content">
+				#MODELE{plan}
+			</div><!--.content-->
+		</main><!--.main-->
 		<INCLURE{fond=inclure/footer,self=#SELF} />
 	</body>
 </html>

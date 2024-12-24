@@ -11,24 +11,21 @@
 		<link rel="alternate" type="application/rss+xml"[ title="(#TITRE|attribut_html)"] href="[(#URL_PAGE{backend}|parametre_url{id_mot,#ID_MOT})]" />
 	</head>
 
-	<body class="pas_surlignable page_mot">
-		<div class="page">
-
-			<INCLURE{fond=inclure/header} />
-			<INCLURE{fond=inclure/nav,env} />
-
-			<main class="main" role="main">
+	<body class="pas_surlignable page_mot bg-gray-300">
+		<INCLURE{fond=inclure/header} />
+		<INCLURE{fond=inclure/nav,env} />
+		<div class="bg-yellow-300"><a href="#URL_SITE_SPIP/"><:accueil_site:></a>
+			<BOUCLE_ariane(GROUPES_MOTS){id_groupe}> &gt; [(#TITRE|couper{80})]</BOUCLE_ariane>
+			[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]
+		</div>
+		<div class="max-w-5xl mx-auto flex flex-wrap md:flex-nowrap">
+			<main class="main bg-white w-full md:w-2/3" role="main">
 				[(#REM) Contenu principal : contenu du mot-cle ]
-				<div class="wrapper">
 				<div class="content" id="content">
-					<p class="arbo"><a href="#URL_SITE_SPIP/"><:accueil_site:></a> &gt; <:mots_clefs:>
-						<BOUCLE_ariane(GROUPES_MOTS){id_groupe}> &gt; [(#TITRE|couper{80})]</BOUCLE_ariane>
-						[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]
-					</p>
 			
 					<div class="cartouche">
 						[(#LOGO_MOT|image_reduire{224,*})]
-						<h1 class="#EDIT{titre} surlignable">#TITRE</h1>
+						<h1 class="#EDIT{titre} surlignable text-xl"><:mots_clefs:> : #TITRE</h1>
 					</div>
 			
 					[<div class="#EDIT{texte} texte">(#TEXTE)</div>]
@@ -37,7 +34,7 @@
 					<B_articles>
 					<div class="menu menu_articles">
 						#ANCRE_PAGINATION
-						<h2><:articles:></h2>
+						<h2 class="text-lg"><:articles:></h2>
 						<ul>
 							<BOUCLE_articles(ARTICLES) {id_mot} {!par popularite} {pagination 10}>
 							<li dir="#LANG_DIR" class="hentry clearfix text-#LANG_LEFT">
@@ -100,49 +97,40 @@
 					</B_sites>
 			
 					[<div class="notes"><hr />(#NOTES)</div>]
-			
 				</div><!--.content-->
-				</div><!--.wrapper-->
-			
-				<aside class="aside" role="complementary">
-			
-					<INCLURE{fond=inclure/navsub} />
-					#FORMULAIRE_RECHERCHE
-					
-					[(#REM) Menu de navigation mots-cles : les autres mots cles du meme groupe ]
-					<B_mots_freres>
-					<div class="menu">
-						#ANCRE_PAGINATION
-						<h2><:mots_clefs_meme_groupe:></h2>
-						<ul>
-							<BOUCLE_mots_freres(MOTS) {type} {par titre} {pagination 20}>
-							<li><a href="#URL_MOT"[ class="(#EXPOSE)"]>#TITRE</a></li>
-							</BOUCLE_mots_freres>
-						</ul>
-						[<nav role="navigation" class="p pagination">(#PAGINATION)</nav>]
-					</div>
-					</B_mots_freres>
-			
-					[(#REM) Menu de navigation mots-cles : les autres groupes avec un lien sur le premier mot du groupe ]
-					<B_groupes_freres>
-					<div class="menu">
-						<h2><:autres_groupes_mots_clefs:></h2>
-						<ul>
-							<BOUCLE_groupes_freres(GROUPES_MOTS) {!id_groupe} {par titre}>
-							<BOUCLE_mot_cousin(MOTS) {id_groupe} {par titre} {0,1}>
-							<li><a href="#URL_MOT">#TYPE</a></li>
-							</BOUCLE_mot_cousin>
-							</BOUCLE_groupes_freres>
-						</ul>
-					</div>
-					</B_groupes_freres>
-					
-				</aside><!--.aside-->
-			</main><!--.main-->
-
-			<INCLURE{fond=inclure/footer,self=#SELF} />
-
+			</main>
+			<aside class="aside w-full md:w-1/3" role="complementary">
+				<INCLURE{fond=inclure/navsub} />				
+				[(#REM) Menu de navigation mots-cles : les autres mots cles du meme groupe ]
+				<B_mots_freres>
+				<div class="menu shadow-lg rounded-lg mt-3 bg-white">
+					#ANCRE_PAGINATION
+					<h2 class="text-lg bg-blue-500"><:mots_clefs_meme_groupe:></h2>
+					<ul class="px-3">
+						<BOUCLE_mots_freres(MOTS) {type} {par titre} {pagination 20}>
+						<li><a href="#URL_MOT"[ class="(#EXPOSE)"]>#TITRE</a></li>
+						</BOUCLE_mots_freres>
+					</ul>
+					[<nav role="navigation" class="p pagination">(#PAGINATION)</nav>]
+				</div>
+				</B_mots_freres>
+		
+				[(#REM) Menu de navigation mots-cles : les autres groupes avec un lien sur le premier mot du groupe ]
+				<B_groupes_freres>
+				<div class="menu shadow-lg rounded-lg mt-3 bg-white">
+					<h2 class="text-lg bg-blue-500 px-3"><:autres_groupes_mots_clefs:></h2>
+					<ul class="px-3">
+						<BOUCLE_groupes_freres(GROUPES_MOTS) {!id_groupe} {par titre}>
+						<BOUCLE_mot_cousin(MOTS) {id_groupe} {par titre} {0,1}>
+						<li><a href="#URL_MOT">#TYPE</a></li>
+						</BOUCLE_mot_cousin>
+						</BOUCLE_groupes_freres>
+					</ul>
+				</div>
+				</B_groupes_freres>
+			</aside>
 		</div><!--.page-->
+		<INCLURE{fond=inclure/footer,self=#SELF} />
 	</body>
 </html>
 </BOUCLE_principale>

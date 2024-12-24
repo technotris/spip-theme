@@ -7,27 +7,27 @@
 <B_pages>
 	[<span class="pagination-label"><span class="label">(#ENV{label})</span></span>]
 	<ul class="inline-flex -space-x-px text-sm pagination-items pagination_#GET{type}">
-		[
-		(#ENV{afficher_lien_precedent,0}|ou{#GET{type}|=={precedent_suivant}})
-		[(#SET{item, #ENV{page_courante}|moins{2}|mult{#ENV{pas}} })]
-		[<li class="pagination-item prev[(#ENV{page_courante}|<={1}|oui)disabled] flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-			(#ENV{url_precedent,#ENV{url}
-				|parametre_url{#ENV{debut},#GET{item}|?{#GET{item}}}}
-				|ancre_url{#ENV{ancre}}
-				|lien_ou_expose{#ENV{label_precedent,#GET{type}|pagination_affiche_texte_lien_page{prev,#GET{item}}},#ENV{page_courante}|<={1}|?{span.pagination-item-label},'pagination-item-label lien_pagination','',prev nofollow}
-				|inserer_attribut{aria-label,<:lien_aller_a_la_page_precedente:>}
-				|inserer_attribut{title,<:public:page_precedente:>}
-				)
-		</li>]
+		[(#ENV{afficher_lien_precedent,0}|ou{#GET{type}|=={precedent_suivant}})
+			[(#SET{item, #ENV{page_courante}|moins{2}|mult{#ENV{pas}} })]
+			[<li class="pagination-item prev[(#ENV{page_courante}|<={1}|oui)disabled] flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+				(#ENV{url_precedent,#ENV{url}
+					|parametre_url{#ENV{debut},#GET{item}|?{#GET{item}}}}
+					|ancre_url{#ENV{ancre}}
+					|lien_ou_expose{#ENV{label_precedent,#GET{type}|pagination_affiche_texte_lien_page{prev,#GET{item}}},#ENV{page_courante}|<={1}|?{span.pagination-item-label},'pagination-item-label lien_pagination','',prev nofollow}
+					|inserer_attribut{aria-label,<:lien_aller_a_la_page_precedente:>}
+					|inserer_attribut{title,<:public:page_precedente:>}
+					)
+			</li>]
 		]
 		[<li class="pagination-item flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"><a
 	      	href="[(#ENV{url}|parametre_url{#ENV{debut},''}|ancre_url{#ENV{ancre}}|attribut_url)]"
 			class="pagination-item-label lien_pagination" aria-label="<:lien_aller_a_la_premiere_page|attribut_html:>"
 			rel="nofollow">(#GET{premiere}|>{1}|?{#GET{type}|pagination_affiche_texte_lien_page{1,0}})</a>
 		</li>
-			[(#GET{premiere}|>{2}|oui)<li class="pagination-item tbc disabled"><span class="pagination-item-label">…</span></li>]
+			[(#GET{premiere}|>{2}|oui)<li class="pagination-item tbc disabled"><span class="pagination-item-label flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">…</span></li>]
 		]
 
+		<!-- ajouter style 1ere et derniere -->
 		<BOUCLE_pages(DATA){source table, #GET{pages}}>
 		[(#SET{item, #VALEUR|moins{1}|mult{#ENV{pas}} })]
 		[<li class="pagination-item[(#VALEUR|=={#ENV{page_courante}}|oui)on active] flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">(#ENV{url}
@@ -38,10 +38,9 @@
 			)
 		</li>]
 		</BOUCLE_pages>
-
-		[#SET{item, #ENV{nombre_pages}|moins{1}|mult{#ENV{pas}}}]
+		[(#SET{item, #ENV{nombre_pages}|moins{1}|mult{#ENV{pas}}})]
 		[
-			[(#GET{derniere}|<{#ENV{nombre_pages}|moins{1}}|oui)<li class="pagination-item tbc disabled"><span class="pagination-item-label">…</span></li>]
+			[(#GET{derniere}|<{#ENV{nombre_pages}|moins{1}}|oui)<li class="pagination-item tbc disabled"><span class="pagination-item-label flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">…</span></li>]
 			<li class="pagination-item flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
 				<a
 				href="[(#ENV{url}|parametre_url{#ENV{debut},#GET{item}}|ancre_url{#ENV{ancre}}|attribut_url)]"

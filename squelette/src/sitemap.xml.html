@@ -14,11 +14,10 @@
 
 	un critère annee permet de lister les articles d'une année pour contourner la limite de 2000 items  du sitemap general
 	sitemap.xml?annee=1981
-
-
+	
 	(On pose un cache a zero pour echapper au test _IS_BOT)
-
-]#HTTP_HEADER{Content-Type: text/xml; charset=utf-8}
+]
+#HTTP_HEADER{Content-Type: text/xml; charset=utf-8}
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
@@ -41,7 +40,7 @@
 	<url>
 		[<loc>(#URL_ARTICLE|url_absolue)</loc>]
 		<BOUCLE_a_trad(ARTICLES){traduction}>
-			<xhtml:link rel="alternate" hreflang="[(#LANG)]" href="[(#URL_ARTICLE|url_absolue)]" />
+		<xhtml:link rel="alternate" hreflang="[(#LANG)]" href="[(#URL_ARTICLE|url_absolue)]" />
 		</BOUCLE_a_trad>
 		[(#DATE_MODIF**|>{#GET{recent}}|?{[<lastmod>(#DATE_MODIF**|date_iso)</lastmod>]})]
 	</url>
@@ -57,5 +56,4 @@
 	#SET{fond,#VAL{sitemap-}|concat{#VALEUR{table_objet}}}
 	[(#GET{fond}|trouver_fond|oui)#INCLURE*{fond=#GET{fond}}]
 </BOUCLE_objets>
-
 </urlset>

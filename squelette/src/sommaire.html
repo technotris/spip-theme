@@ -12,7 +12,7 @@
 		<!-- menu caché pour mobile -->
 		<INCLURE{fond=inclure/nav,env} />
 		<div class="container mx-auto max-w-5xl flex flex-wrap py-6 bg-gray-300">
-			<nav class="hidden md:block w-full md:w-1/6 flex flex-col items-center px-3 bg-white" id="navbar-default">
+			<nav class="hidden w-full md:w-1/6 md:flex flex-col items-center px-3 bg-white" id="navbar-default">
 				<ul class="items-center justify-between font-bold text-sm no-underline">
 					<BOUCLE_nav(RUBRIQUES) {racine} {par num titre, titre}>
 					<li class="nav-item[ (#EXPOSE)][ (#COMPTEUR_BOUCLE|=={1}|oui)first][ (#COMPTEUR_BOUCLE|=={#TOTAL_BOUCLE}|oui)last]">
@@ -21,8 +21,8 @@
 					</BOUCLE_nav>
 				</ul>
 			</nav>
-			<main class="w-full md:w-4/6 flex flex-col items-center px-3 bg-white" role="main">
-				<div class="wrapper hfeed">
+			<main class="w-full md:w-4/6 flex flex-col items-center px-3 " role="main">
+				<div class="wrapper hfeed bg-white">
 					<div class="content" id="content">
 						[<div class="chapo">(#DESCRIPTIF_SITE_SPIP)</div>]
 						<INCLURE{fond=inclure/recents,env,ajax} />

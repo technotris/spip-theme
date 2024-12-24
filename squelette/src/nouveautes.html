@@ -1,14 +1,12 @@
+[(#REM) utilisé pour les mails @todo mettre dans un dossier email]
 <B_test_contenu>
     [[(#NOM_SITE_SPIP|textebrut)]] <:nouveautes:>
-
-
 <:bonjour:>
 
 <:texte_lettre_information:> "[(#NOM_SITE_SPIP|textebrut)]" (#URL_SITE_SPIP).
 <:texte_lettre_information_2:> [(#ENV{jours_neuf})] <:jours:>.
     <BOUCLE_test_contenu(AUTEURS){0,1}{tous}>
         <B_nv1>
-
           <:nouveaux_articles:>
           --------------------------
 
@@ -16,9 +14,7 @@
 [** (#TITRE|textebrut) **]
 [<:par_auteur:> (#LESAUTEURS|textebrut)]
 [- (#DATE|affdate)]
-[
-(#INTRODUCTION|textebrut)
-]
+[(#INTRODUCTION|textebrut)]
 -> [(#URL_ARTICLE|url_absolue)]
 
             </BOUCLE_nv1>

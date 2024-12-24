@@ -24,8 +24,7 @@
 	</image>
 ]
 
-<BOUCLE_breves(BREVES){id_rubrique ?}{lang ?}{id_mot ?}
-{par date}{inverse}{0,20}>
+<BOUCLE_breves(BREVES){id_rubrique ?}{lang ?}{id_mot ?}{par date}{inverse}{0,20}>
 	<item[ xml:lang="(#LANG)"]>
 		<title>[(#TITRE|supprimer_tags|texte_backend)]</title>
 		<link>[(#URL_BREVE|url_absolue)]</link>
@@ -33,22 +32,22 @@
 		[<dc:date>(#DATE|date_iso)</dc:date>]
 		<dc:format>text/html</dc:format>
 		[<dc:language>(#LANG)</dc:language>]
-		[(#REM)
-			Le bloc qui suit diffuse diffuse les mots-cles a la mode RSS
-		]<BOUCLE_mots_rss(MOTS?){id_breve}>[
-<dc:subject>(#TITRE|texte_backend)</dc:subject>]</BOUCLE_mots_rss>
-
+		[(#REM) Le bloc qui suit diffuse diffuse les mots-cles a la mode RSS]
+		<BOUCLE_mots_rss(MOTS?){id_breve}>
+			[<dc:subject>(#TITRE|texte_backend)</dc:subject>]
+		</BOUCLE_mots_rss>
 		<description>[(#INTRODUCTION|texte_backend)]
-
 [(#REM)
 	Le bloc qui suit diffuse la rubrique et les mots-cles
 	sous forme de "microformats"
-
-]<BOUCLE_rubrique_mf(RUBRIQUES){id_rubrique}>-
-[&lt;a href="[(#URL_RUBRIQUE|url_absolue)]" rel="directory"&gt;(#TITRE|texte_backend)&lt;/a&gt;]
-</BOUCLE_rubrique_mf><B_mots_mf>
-/ <BOUCLE_mots_mf(MOTS?){id_breve}{", "}>
-[&lt;a href="[(#URL_MOT|url_absolue)]" rel="tag"&gt;(#TITRE|texte_backend)&lt;/a&gt;]</BOUCLE_mots_mf>
+]
+		<BOUCLE_rubrique_mf(RUBRIQUES){id_rubrique}>-
+		[&lt;a href="[(#URL_RUBRIQUE|url_absolue)]" rel="directory"&gt;(#TITRE|texte_backend)&lt;/a&gt;]
+		</BOUCLE_rubrique_mf><B_mots_mf>
+		/ 
+		<BOUCLE_mots_mf(MOTS?){id_breve}{", "}>
+		[&lt;a href="[(#URL_MOT|url_absolue)]" rel="tag"&gt;(#TITRE|texte_backend)&lt;/a&gt;]
+		</BOUCLE_mots_mf>
 
 		</description>
 
@@ -56,21 +55,21 @@
 	Le bloc qui suit diffuse aussi le texte integral de la breve,
 	ce qui permet une syndication plus riche (mais plus "lourde").
 	Fonction desactivable depuis les reglages du site.
-][
-(#CONFIG{syndication_integrale}|=={oui}|?{' ',''})<content:encoded>[(#LOGO_BREVE{right}|image_reduire{150,150}|texte_backend)
-		][&lt;div class='rss_texte'&gt;(#TEXTE|
-			image_reduire{500,0}|texte_backend)&lt;/div&gt;
-		][&lt;hr /&gt;
-		&lt;div class='rss_notes'&gt;(#NOTES|texte_backend)&lt;/div&gt;]
+]
+[(#CONFIG{syndication_integrale}|=={oui}|?{' ',''})
+		<content:encoded>
+			[(#LOGO_BREVE{right}|image_reduire{150,150}|texte_backend)]
+			[&lt;div class='rss_texte'&gt;(#TEXTE|image_reduire{500,0}|texte_backend)&lt;/div&gt;]
+			[&lt;hr /&gt; &lt;div class='rss_notes'&gt;(#NOTES|texte_backend)&lt;/div&gt;]
 		</content:encoded>
 ]
 [(#REM)
 	Le bloc qui suit diffuse l'adresse des documents associes aux articles ;
 	ajouter par ex. {extension=mp3} pour limiter a un certain type de document.
-]		<BOUCLE_documents(DOCUMENTS){id_breve}{media!=image}{doublons}>[
-		<enclosure url="(#URL_DOCUMENT|url_absolue|unique)"[ length="(#TAILLE)"][ type="(#MIME_TYPE)"] />]
+]		
+		<BOUCLE_documents(DOCUMENTS){id_breve}{media!=image}{doublons}>
+		[<enclosure url="(#URL_DOCUMENT|url_absolue|unique)"[ length="(#TAILLE)"][ type="(#MIME_TYPE)"] />]
 		</BOUCLE_documents>
-
 	</item>
 </BOUCLE_breves>
 	</channel>
