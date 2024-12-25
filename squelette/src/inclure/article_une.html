@@ -1,0 +1,37 @@
+<B_une>
+	<section class="menu menu_articles">
+		<BOUCLE_une(ARTICLES) {type_mot=squelette_habillage}{titre_mot=article_une}{doublons}{par date}{inverse}{0,1}>
+		<article dir="#LANG_DIR" class="flex flex-col shadow-lg rounded-lg bg-white my-4 pb-3 text-#LANG_LEFT">
+			<div class="cartouche clearfix py-3">
+				[<p class="#EDIT{surtitre} text-sm">(#SURTITRE)</p>]
+				<h2 class="#EDIT{titre} text-xl"><a href="#URL_ARTICLE" rel="bookmark"></a>[(#LOGO_ARTICLE_RUBRIQUE|image_reduire{150,*}) ]#TITRE</a></h2>
+				[<p class="#EDIT{soustitre} text-sm">(#SOUSTITRE)</p>]
+				<p class="info-publi">
+					<abbr class="published" title="[(#DATE|date_iso)]">[(#DATE|nom_jour) ][(#DATE|affdate)]</abbr>
+					[<span class="sep">, </span><span class="auteurs"><:par_auteur:> (#LESAUTEURS|supprimer_tags)</span>]
+				</p>
+				[(#REM) Inclure le modele des liens de traductions]
+				[(#REM) #MODELE{article_traductions}]
+			</div>
+			
+			[<div class="#EDIT{chapo} chapo surlignable">(#CHAPO|image_reduire{672,*})</div>]
+			[<div class="#EDIT{texte} texte surlignable clearfix">(#TEXTE|image_reduire{672,*})</div>]
+		
+			[<hr /><p class="#EDIT{hyperlien} hyperlien"><:voir_en_ligne:> : <a href="(#URL_SITE)">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
+			[<div class="#EDIT{ps} ps surlignable"><hr />(#PS|image_reduire{672,*})</div>]
+		
+			[(#REM) Gestion du portfolio et des documents]
+			[(#INCLURE{fond=inclure/documents,id_article,id_rubrique='',env})]
+	
+			[(#REM) Petition : La petition ayant une PAGINATION il faut absolument {env} et pourquoi pas ajax]
+			[(#PETITION|oui)<INCLURE{fond=inclure/petition,id_article,env,ajax} />]
+			
+			[<div class="notes"><hr />(#NOTES)</div>]
+			
+			[(#REM) Forum de l'article ]
+			<INCLURE{fond=inclure/forum,id_article} />
+			[<h3 class="forum-titre"><:forum:form_pet_message_commentaire:></h3>(#FORMULAIRE_FORUM)]
+		</article>
+		</BOUCLE_une>
+	</section>
+</B_une>

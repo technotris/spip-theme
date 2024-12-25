@@ -11,35 +11,34 @@
 		<INCLURE{fond=inclure/header,home=oui} />
 		<!-- menu caché pour mobile -->
 		<INCLURE{fond=inclure/nav,env} />
-		<div class="container mx-auto max-w-5xl flex flex-wrap py-6 bg-gray-300">
-			<nav class="hidden w-full md:w-1/6 md:flex flex-col items-center px-3 bg-white" id="navbar-default">
-				<ul class="items-center justify-between font-bold text-sm no-underline">
+		<div class="container mx-auto max-w-7xl flex flex-wrap py-6 bg-gray-300">
+			<nav class="hidden w-full md:w-1/6 md:flex flex-col items-center mb-3 pl-1" id="navbar-default">
+				<ul class="items-center justify-between text-sm no-underline bg-white rounded-lg p-3">
 					<BOUCLE_nav(RUBRIQUES) {racine} {par num titre, titre}>
-					<li class="nav-item[ (#EXPOSE)][ (#COMPTEUR_BOUCLE|=={1}|oui)first][ (#COMPTEUR_BOUCLE|=={#TOTAL_BOUCLE}|oui)last]">
-						<a href="#URL_RUBRIQUE">#TITRE</a>
+					<li class="nav-item[ (#EXPOSE)][ (#COMPTEUR_BOUCLE|=={1}|oui)first][ (#COMPTEUR_BOUCLE|=={#TOTAL_BOUCLE}|oui)last] my-1">
+						<a href="#URL_RUBRIQUE" class="">#TITRE</a>
 					</li>
 					</BOUCLE_nav>
 				</ul>
 			</nav>
-			<main class="w-full md:w-4/6 flex flex-col items-center px-3 " role="main">
-				<div class="wrapper hfeed bg-white">
-					<div class="content" id="content">
-						[<div class="chapo">(#DESCRIPTIF_SITE_SPIP)</div>]
-						<INCLURE{fond=inclure/recents,env,ajax} />
-					</div><!--.content-->
-				</div><!--.wrapper-->
-			</main><!--.main-->
-			<aside class="w-full md:w-1/6 flex flex-col items-center px-3 bg-white" role="complementary">
+			<main class="w-full md:w-7/12 flex flex-col items-center px-3 " role="main">
+				<div class="content bg-yellow-100 px-3" id="content">
+					[<div class="chapo">(#DESCRIPTIF_SITE_SPIP)</div>]
+					<INCLURE{fond=inclure/article_une,env,ajax} />
+					<INCLURE{fond=inclure/recents,env,ajax} />
+				</div><!--.content-->
+			</main>
+			<aside class="content w-full md:w-3/12 flex flex-col items-center pr-1" role="complementary">
 				<INCLURE{fond=inclure/navsub} />
 				
 				<B_breves>
 				<div class="menu menu_breves">
-					<h2><:dernieres_breves:></h2>
+					<h2 class="px-3 text-lg border bg-blue-900 text-white border-black text-center"><:dernieres_breves:></h2>
 					<BOUCLE_breves(BREVES?) {!par date} {0,3}>
-					<div dir="#LANG_DIR" class="flex flex-col shadow-lg my-4 text-#LANG_LEFT">
-						[<small>(#DATE|affdate_jourcourt)</small>]
-						<h3><a href="#URL_BREVE">#TITRE</a></h3>
-						#INTRODUCTION
+					<div dir="#LANG_DIR" class="flex flex-col shadow-lg my-4 pb-3 bg-white rounded-lg text-#LANG_LEFT">
+						<h3 class="px-3 bg-blue-300"><a href="#URL_BREVE">#TITRE</a></h3>
+						[<small class="px-3">(#DATE|affdate_jourcourt)</small>]
+						<div class="px-3">#TEXTE</div>
 					</div>
 					</BOUCLE_breves>
 				</div>
