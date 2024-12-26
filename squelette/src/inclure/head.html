@@ -3,6 +3,18 @@
 <meta name="robots" content="(#ENV{robots})" />
 <link rel="alternate"  type="application/rss+xml"  title="<:syndiquer_site:>" href="(#URL_PAGE{backend})"/>  
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+		darkMode: 'selector',
+      theme: {
+        extend: {
+          colors: {
+            blueish: '#003a83',
+          }
+        }
+      }
+    }
+  </script>
 [(#REM) 2. Style SPIP et ses plugins ] 
 [<link rel="stylesheet" href="(#CHEMIN{css/spip.css}|direction_css|timestamp)" type="text/css"/>]
 [<link rel="stylesheet" href="(#CHEMIN{css/textwheel.css}|direction_css|timestamp)" type="text/css"/>]
@@ -11,5 +23,15 @@
 [(#REM) Balise permettant aux plugins d'inserer des appels javascript] 
 
 #INSERT_HEAD 
+<script>
+	// On page load or when changing themes, best to add inline in `head` to avoid FOUC
+    if (localStorage.getItem('color-theme') === 'dark' 
+	|| (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+		document.documentElement.classList.add('dark');
+    } else {
+		document.documentElement.classList.remove('dark')
+    }
+</script>
+	
 
 [<link rel="icon"type="image/x-icon" href="(#CHEMIN{icon/favicon.ico})"/>]
